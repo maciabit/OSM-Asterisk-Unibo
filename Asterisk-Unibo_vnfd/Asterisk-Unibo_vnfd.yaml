@@ -1,0 +1,56 @@
+vnfd:
+  description: Asterisk VNF
+
+  df:
+  - id: default-df
+    instantiation-level:
+    - id: default-instantiation-level
+      vdu-level:
+      - number-of-instances: 1
+        vdu-id: ast-VM
+    vdu-profile:
+    - id: ast-VM
+      min-number-of-instances: 1
+
+  ext-cpd:
+  - id: vnf-osm-ext
+    int-cpd:
+      cpd: eth0-int
+      vdu-id: ast-VM   
+
+  id: Asterisk-Unibo_vnfd
+  mgmt-cp: vnf-osm-ext
+  product-name: Asterisk-Unibo_vnfd
+  provider: Unibo
+  sw-image-desc:
+  - id: Unibo-asterisk-default
+    image: Unibo-asterisk-default
+    name: Unibo-asterisk-default
+
+  vdu: 
+  - cloud-init-file: ast_init.txt
+    description: ast-VM
+    id: ast-VM
+    name: ast-VM
+    sw-image-desc: Unibo-asterisk-default
+    virtual-compute-desc: ast-VM-compute
+    virtual-storage-desc: ast-VM-storage
+    supplemental-boot-data: 
+      boot-data-drive: true
+    int-cpd:
+    - id: eth0-int
+      virtual-network-interface-requirement:
+      - name: eth0
+        virtual-interface:
+          type: PARAVIRT
+
+  version: '1.0'
+  virtual-compute-desc:
+  - id: ast-VM-compute
+    virtual-cpu:
+      num-virtual-cpu: 2
+    virtual-memory:
+      size: 4.0 
+  virtual-storage-desc:
+  - id: ast-VM-storage
+    size-of-storage: 40

@@ -1,0 +1,11 @@
+writetofile:
+  description: write a text to a file
+  params:
+    filename:
+      description: The file name
+      type: string
+      default: "/home/ubuntu/default.txt"
+    text:
+      description: The text to write 
+      type: string
+      default: "Default text"
