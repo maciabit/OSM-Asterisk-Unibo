@@ -1,6 +1,6 @@
 name: native-charm
 summary: Native charm used to write some text lines to a file
-maintainer: Daniele Rossi <daniele.rossi27@unibo.it>
+maintainer: Unibo Team
 description: |
   Native charm used to write some text lines to a file
 tags:
@@ -8,6 +8,6 @@ tags:
   - network
   - openstack
 subordinate: false
-series: 
+series:
   - xenial
   - bionic

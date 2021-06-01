@@ -1,0 +1,24 @@
+nsd:
+  nsd:
+  - description: Asterisk NS 
+    designer: Unibo
+    df:
+    - id: default-df
+      vnf-profile:
+      - id: '1'
+        virtual-link-connectivity:
+        - constituent-cpd-id:
+          - constituent-base-element-id: '1'
+            constituent-cpd-id: vnf-osm-ext
+          virtual-link-profile-id: osm-ext
+        vnfd-id: Asterisk-Unibo_vnfd 
+
+    id: Asterisk-Unibo_nsd
+    name: Asterisk-Unibo_nsd
+    version: '1.0'
+
+    virtual-link-desc:
+    - id: osm-ext
+      vim-network-name: osm-ext
+    vnfd-id:
+    - Asterisk-Unibo_vnfd
