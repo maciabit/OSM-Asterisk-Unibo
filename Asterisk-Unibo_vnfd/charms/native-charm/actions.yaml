@@ -1,3 +1,4 @@
+# To be deleted
 writetofile:
   description: write a text to a file
   params:
@@ -6,6 +7,31 @@ writetofile:
       type: string
       default: "/home/ubuntu/default.txt"
     text:
-      description: The text to write 
+      description: The text to write
       type: string
       default: "Default text"
+
+start_asterisk:
+  description: Start Asterisk
+
+add_user:
+  description: Add a new user to Asterisk
+  required:
+    - username
+    - password
+  params:
+    username:
+      description: The account name
+      type: string
+    password:
+      description: The account password
+      type: string
+
+remove_user:
+  description: Remove a user from Asterisk
+  required:
+    - username
+  params:
+    username:
+      description: The account name
+      type: string
