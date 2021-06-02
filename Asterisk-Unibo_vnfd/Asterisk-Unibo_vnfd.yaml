@@ -13,39 +13,39 @@ vnfd:
       min-number-of-instances: 1
 
     lcm-operations-configuration:
-    operate-vnf-op-config:
-      day1-2:
-        - config-access:
-            ssh-access:
-              default-user: ubuntu
-              required: true
-          id: ast-VM
-          execution-environment-list:
-            - id: env
-              juju:
-                charm: native-charm
-                proxy: false
-          config-primitive:
-          - name: writetofile 
-            execution-environment-ref: env
-            parameter:
-            - name: filename
-              data-type: STRING
-              default-value: '/etc/asterisk/charm.yaml'
-            - name: text
-              data-type: STRING
-              default-value: 'This is a test!'                      
-          initial-config-primitive:
-          - name: writetofile 
-            execution-environment-ref: env
-            parameter:
-            - name: filename
-              data-type: STRING
-              value: '/etc/asterisk/charm.yaml'
-            - name: text
-              data-type: STRING
-              value: 'This is a test!'
-            seq: 1  
+      operate-vnf-op-config:
+        day1-2:
+          - config-access:
+              ssh-access:
+                default-user: ubuntu
+                required: true
+            id: ast-VM
+            execution-environment-list:
+              - id: env
+                juju:
+                  charm: native-charm
+                  proxy: false
+            config-primitive:
+            - name: writetofile 
+              execution-environment-ref: env
+              parameter:
+              - name: filename
+                data-type: STRING
+                default-value: '/etc/asterisk/charm.yaml'
+              - name: text
+                data-type: STRING
+                default-value: 'This is a test!'                      
+            initial-config-primitive:
+            - name: writetofile 
+              execution-environment-ref: env
+              parameter:
+              - name: filename
+                data-type: STRING
+                value: '/etc/asterisk/charm.yaml'
+              - name: text
+                data-type: STRING
+                value: 'This is a test!'
+              seq: 1  
 
   ext-cpd:
   - id: vnf-osm-ext
