@@ -11,10 +11,10 @@ writetofile:
       type: string
       default: "Default text"
 
-start_asterisk:
+startasterisk:
   description: Start Asterisk
 
-add_user:
+adduser:
   description: Add a new user to Asterisk
   required:
     - username
@@ -27,7 +27,7 @@ add_user:
       description: The account password
       type: string
 
-remove_user:
+removeuser:
   description: Remove a user from Asterisk
   required:
     - username
