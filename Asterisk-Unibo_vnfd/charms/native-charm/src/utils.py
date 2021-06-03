@@ -6,6 +6,11 @@ extensions_conf = "/etc/asterisk/extensions.conf"
 pjsip_conf = "/etc/asterisk/pjsip.conf"
 
 def start_asterisk():
+    with open(extensions_conf, "a") as f:
+        f.write(textwrap.dedent(f"""
+            exten => _.!,1,Answer()
+            same => n,Playback(cannot-complete-as-dialed)
+        """))
     subprocess.run("asterisk -vvvvv", shell=True)
 
 def reload_asterisk():
