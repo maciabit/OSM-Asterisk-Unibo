@@ -92,3 +92,10 @@ class TestCharm(unittest.TestCase):
         self.harness.charm.on_remove_user(remove_action_event)
         self.assertEqual("", self.__get_file_content(EXTENSION_FILE), "pjsip configurations do not match")
         self.assertEqual("", self.__get_file_content(PJSIP_FILE), "extensions configurations do not match")
+
+    def test_remove_no_existing_user(self):
+        username = "lampa"
+        password = "dina"
+        remove_action_event = Mock(params={"username": username})
+        self.harness.charm.on_remove_user(remove_action_event)
+        self.assertTrue(remove_action_event.fail.called)
