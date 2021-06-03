@@ -122,7 +122,7 @@ class NativeCharmCharm(CharmBase):
                     f.write(file_content)
 
             self._stored.users.remove(username)
-            subprocess.run('asterisk -rx "reload"', shell=True)
+            subprocess.run('asterisk -rx "core restart now"', shell=True)
             event.set_results({"message": f"User {username} successfully removed"})
 
         except Exception as e:
