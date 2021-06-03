@@ -41,7 +41,8 @@ class NativeCharmCharm(CharmBase):
         self.model.unit.status = ActiveStatus()
 
     def on_start_asterisk(self, event):
-        subprocess.run("asterisk -cvvvvv", shell=True)
+        subprocess.run("asterisk -vvvvv", shell=True)
+        event.set_results({"message": "Asterisk started correctly"})
 
     def on_add_user(self, event):
         all_params = event.params
