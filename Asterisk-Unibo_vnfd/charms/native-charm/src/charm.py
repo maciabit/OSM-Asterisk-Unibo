@@ -7,12 +7,13 @@ from ops.framework import StoredState
 from ops.main import main
 from ops.model import ActiveStatus
 
-import utils
+from utils import (
+    Utils,
+    start_asterisk,
+    reload_asterisk
+)
 
 logger = logging.getLogger(__name__)
-
-extensions_conf = "/etc/asterisk/extensions.conf"
-pjsip_conf = "/etc/asterisk/pjsip.conf"
 
 
 class NativeCharmCharm(CharmBase):
@@ -31,6 +32,13 @@ class NativeCharmCharm(CharmBase):
         self.framework.observe(self.on.adduser_action, self.on_add_user)
         self.framework.observe(self.on.removeuser_action, self.on_remove_user)
 
+        if self.config['testing']:
+            self.utils = Utils(extensions_conf="../tests/mocked_config_files/extensions.conf",
+                               pjsip_conf="../tests/mocked_config_files/pjsip.conf")
+        else:
+            self.utils = Utils(extensions_conf="/etc/asterisk/extensions.conf",
+                               pjsip_conf="/etc/asterisk/pjsip.conf")
+
     def on_config_changed(self, event):
         """Handle changes in configuration"""
         self.model.unit.status = ActiveStatus()
@@ -44,8 +52,11 @@ class NativeCharmCharm(CharmBase):
         self.model.unit.status = ActiveStatus()
 
     def on_start_asterisk(self, event):
-        utils.start_asterisk()
-        event.set_results({"message": "Asterisk started correctly"})
+        try:
+            start_asterisk()
+            event.set_results({"message": "Asterisk started correctly"})
+        except Exception as e:
+            event.fail(message=f'Error: {str(e)}')
 
     def on_add_user(self, event):
         all_params = event.params
@@ -57,9 +68,10 @@ class NativeCharmCharm(CharmBase):
             return
 
         try:
-            utils.add_user(username, password)
+            self.utils.add_user(username, password)
             self._stored.users.add(username)
-            utils.reload_asterisk()
+            if not self.config['testing']:
+                reload_asterisk()
             event.set_results({"message": f"User {username} successfully added"})
         except Exception as e:
             event.fail(message = f'Error: {str(e)}')
@@ -73,9 +85,10 @@ class NativeCharmCharm(CharmBase):
             return
 
         try:
-            utils.remove_user(username)
+            self.utils.remove_user(username)
             self._stored.users.remove(username)
-            utils.reload_asterisk()
+            if not self.config['testing']:
+                reload_asterisk()
             event.set_results({"message": f"User {username} successfully removed"})
         except Exception as e:
             event.fail(message = f'Error: {str(e)}')
