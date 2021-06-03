@@ -1,14 +1,13 @@
 #!/usr/bin/env python3
 
 import logging
-import subprocess
-import textwrap
-import re
 
 from ops.charm import CharmBase
 from ops.framework import StoredState
 from ops.main import main
 from ops.model import ActiveStatus
+
+import utils
 
 logger = logging.getLogger(__name__)
 
@@ -45,7 +44,7 @@ class NativeCharmCharm(CharmBase):
         self.model.unit.status = ActiveStatus()
 
     def on_start_asterisk(self, event):
-        subprocess.run("asterisk -vvvvv", shell=True)
+        utils.start_asterisk()
         event.set_results({"message": "Asterisk started correctly"})
 
     def on_add_user(self, event):
@@ -58,31 +57,10 @@ class NativeCharmCharm(CharmBase):
             return
 
         try:
-            # Add user to extensions.conf
-            with open(extensions_conf, "a") as f:
-                f.write(f"exten => {username},1,Dial(PJSIP/{username},20)\n")
-            # Add user to pjsip.conf
-            with open(pjsip_conf, "a") as f:
-                f.write(
-                    textwrap.dedent(
-                        f"""
-                    [{username}](template_hackfest)
-                    auth={username}
-                    aors={username}
-
-                    [{username}](auth_userpass)
-                    username={username}
-                    password={password}
-
-                    [{username}](aor_dynamic)
-                    """
-                    )
-                )
-
+            utils.add_user(username, password)
             self._stored.users.add(username)
-            subprocess.run('asterisk -rx "core restart now"', shell=True)
+            utils.reload_asterisk()
             event.set_results({"message": f"User {username} successfully added"})
-
         except Exception as e:
             event.fail(message = f'Error: {str(e)}')
 
@@ -95,36 +73,10 @@ class NativeCharmCharm(CharmBase):
             return
 
         try:
-            # Remove user from extensions.conf
-            with open(extensions_conf, "r") as f:
-                lines = f.readlines()
-            with open(extensions_conf, "w") as f:
-                for line in lines:
-                    if (
-                        line.strip("\n")
-                        != f"exten => {username},1,Dial(PJSIP/{username},20)"
-                    ):
-                        f.write(line)
-            # Remove user from pjsip.conf
-            with open(pjsip_conf, "r") as f:
-                file_content = f.read()
-            x = re.search(
-                f"(?s)(?<=\[{username}\]\(template_hackfest\)).*?(?=\[{username}\]\(aor_dynamic\))",
-                file_content,
-                flags=re.MULTILINE,
-            )
-            if x:
-                user_settings = (
-                    f"\n[{username}](template_hackfest){x[0]}[{username}](aor_dynamic)\n"
-                )
-                file_content = file_content.replace(user_settings, "")
-                with open(pjsip_conf, "w") as f:
-                    f.write(file_content)
-
+            utils.remove_user(username)
             self._stored.users.remove(username)
-            subprocess.run('asterisk -rx "core restart now"', shell=True)
+            utils.reload_asterisk()
             event.set_results({"message": f"User {username} successfully removed"})
-
         except Exception as e:
             event.fail(message = f'Error: {str(e)}')
 
