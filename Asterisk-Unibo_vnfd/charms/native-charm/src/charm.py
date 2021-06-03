@@ -80,7 +80,7 @@ class NativeCharmCharm(CharmBase):
                 )
 
             self._stored.users.add(username)
-            subprocess.run('asterisk -rx "reload"', shell=True)
+            subprocess.run('asterisk -rx "core restart now"', shell=True)
             event.set_results({"message": f"User {username} successfully added"})
 
         except Exception as e:
