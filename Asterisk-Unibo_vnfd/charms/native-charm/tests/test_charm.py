@@ -1,7 +1,4 @@
-# Copyright 2021 birex
-# See LICENSE file for licensing details.
-#
-# Learn more about testing at: https://juju.is/docs/sdk/testing
+import pathlib
 import textwrap
 import unittest
 from unittest.mock import Mock
@@ -9,8 +6,8 @@ from unittest.mock import Mock
 from charm import NativeCharmCharm
 from ops.testing import Harness
 
-EXTENSION_FILE = './mocked_config_files/extensions.conf'
-PJSIP_FILE = './mocked_config_files/pjsip.conf'
+EXTENSION_FILE = f"{pathlib.Path(__file__).parent.absolute()}/mocked_config_files/extensions.conf"
+PJSIP_FILE = f"{pathlib.Path(__file__).parent.absolute()}/mocked_config_files/pjsip.conf"
 
 
 class TestCharm(unittest.TestCase):
@@ -95,4 +92,3 @@ class TestCharm(unittest.TestCase):
         self.harness.charm.on_remove_user(remove_action_event)
         self.assertEqual("", self.__get_file_content(EXTENSION_FILE), "pjsip configurations do not match")
         self.assertEqual("", self.__get_file_content(PJSIP_FILE), "extensions configurations do not match")
-
