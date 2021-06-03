@@ -54,7 +54,7 @@ class NativeCharmCharm(CharmBase):
         password = all_params["password"]
 
         if username in self._stored.users:
-            event.set_fail({'message': f'Username {username} already exists'})
+            event.fail(message = f'Username {username} already exists')
             return
 
         try:
@@ -84,14 +84,14 @@ class NativeCharmCharm(CharmBase):
             event.set_results({"message": f"User {username} successfully added"})
 
         except Exception as e:
-            event.set_fail({'message': f'Error: {str(e)}'})
+            event.fail(message = f'Error: {str(e)}')
 
     def on_remove_user(self, event):
         all_params = event.params
         username = all_params["username"]
 
         if username not in self._stored.users:
-            event.set_fail({'message': f'Username {username} doesn\'t exist'})
+            event.fail(message = f'Username {username} doesn\'t exist')
             return
 
         try:
@@ -126,7 +126,7 @@ class NativeCharmCharm(CharmBase):
             event.set_results({"message": f"User {username} successfully removed"})
 
         except Exception as e:
-            event.set_fail({'message': f'Error: {str(e)}'})
+            event.fail(message = f'Error: {str(e)}')
 
 
 if __name__ == "__main__":
