@@ -24,9 +24,9 @@ class NativeCharmCharm(CharmBase):
         self.framework.observe(self.on.install, self.on_install)
         self.framework.observe(self.on.start, self.on_start)
 
-        self.framework.observe(self.on.start_asterisk_action, self.on_start_asterisk)
-        self.framework.observe(self.on.add_user_action, self.on_add_user)
-        self.framework.observe(self.on.remove_user_action, self.on_remove_user)
+        self.framework.observe(self.on.startasterisk_action, self.on_start_asterisk)
+        self.framework.observe(self.on.adduser_action, self.on_add_user)
+        self.framework.observe(self.on.removeuser_action, self.on_remove_user)
 
     def on_config_changed(self, event):
         """Handle changes in configuration"""

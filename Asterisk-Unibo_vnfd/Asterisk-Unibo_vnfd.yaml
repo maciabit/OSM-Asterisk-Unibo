@@ -26,25 +26,24 @@ vnfd:
                   charm: native-charm
                   proxy: false
             config-primitive:
-            - name: writetofile 
+            - name: adduser 
               execution-environment-ref: env
               parameter:
-              - name: filename
+              - name: username
                 data-type: STRING
-                default-value: '/etc/asterisk/charm.yaml'
-              - name: text
+                default-value: 'username'
+              - name: password
                 data-type: STRING
-                default-value: 'This is a test!'                      
+                default-value: 'password' 
+            - name: removeuser 
+              execution-environment-ref: env
+              parameter:
+              - name: username
+                data-type: STRING
+                default-value: 'username'                             
             initial-config-primitive:
-            - name: writetofile 
+            - name: startasterisk 
               execution-environment-ref: env
-              parameter:
-              - name: filename
-                data-type: STRING
-                value: '/etc/asterisk/charm.yaml'
-              - name: text
-                data-type: STRING
-                value: 'This is a test!'
               seq: 1  
 
   ext-cpd:

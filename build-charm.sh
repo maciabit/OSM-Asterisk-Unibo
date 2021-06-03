@@ -1,7 +1,4 @@
-rm -rf dist
-mkdir dist
-cp -r Asterisk-Unibo_vnfd dist/Asterisk-Unibo_vnfd
-cd dist/Asterisk-Unibo_vnfd/charms/native-charm
+cd Asterisk-Unibo_vnfd/charms/native-charm
 if charmcraft build ; then
     find ./ -mindepth 1 ! -regex '^./build\(/.*\)?' -delete
     cp -r ./build/* ./
