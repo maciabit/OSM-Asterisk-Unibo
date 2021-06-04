@@ -7,4 +7,4 @@ python:
 install:
   - pip install -r ./Asterisk-Unibo_vnfd/charms/native-charm/requirements-dev.txt
 script:
-  - bash ./Asterisk-Unibo_vnfd/charms/native-charm/run_tests
+  - coverage run -m unittest tests/test_charm.py

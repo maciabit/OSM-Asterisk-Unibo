@@ -3,7 +3,7 @@ import textwrap
 import unittest
 from unittest.mock import Mock
 
-from charm import NativeCharmCharm
+from src.charm import NativeCharmCharm
 from ops.testing import Harness
 
 EXTENSION_FILE = f"{pathlib.Path(__file__).parent.absolute()}/mocked_config_files/extensions.conf"
