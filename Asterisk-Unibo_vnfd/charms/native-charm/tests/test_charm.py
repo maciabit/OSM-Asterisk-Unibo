@@ -95,7 +95,6 @@ class TestCharm(unittest.TestCase):
 
     def test_remove_no_existing_user(self):
         username = "lampa"
-        password = "dina"
         remove_action_event = Mock(params={"username": username})
         self.harness.charm.on_remove_user(remove_action_event)
         self.assertTrue(remove_action_event.fail.called)

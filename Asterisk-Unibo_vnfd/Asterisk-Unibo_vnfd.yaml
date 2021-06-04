@@ -57,16 +57,16 @@ vnfd:
   product-name: Asterisk-Unibo_vnfd
   provider: Unibo
   sw-image-desc:
-  - id: Unibo-asterisk-default
-    image: Unibo-asterisk-default
-    name: Unibo-asterisk-default
+  - id: Unibo-asterisk-default-2
+    image: Unibo-asterisk-default-2
+    name: Unibo-asterisk-default-2
 
   vdu: 
   - cloud-init-file: ast_init.txt
     description: ast-VM
     id: ast-VM
     name: ast-VM
-    sw-image-desc: Unibo-asterisk-default
+    sw-image-desc: Unibo-asterisk-default-2
     virtual-compute-desc: ast-VM-compute
     virtual-storage-desc: ast-VM-storage
     supplemental-boot-data: 
