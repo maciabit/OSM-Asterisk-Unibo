@@ -68,9 +68,9 @@ vnfd:
   product-name: Asterisk-Unibo_vnfd
   provider: Unibo
   sw-image-desc:
-  - id: Unibo-asterisk-default-2
-    image: Unibo-asterisk-default-2
-    name: Unibo-asterisk-default-2
+  - id: Unibo-asterisk-default-3
+    image: Unibo-asterisk-default-3
+    name: Unibo-asterisk-default-3
   - id: ubuntu20.04
     image: ubuntu20.04
     name: ubuntu20.04  
@@ -80,7 +80,7 @@ vnfd:
     description: ast-VM
     id: ast-VM
     name: ast-VM
-    sw-image-desc: Unibo-asterisk-default-2
+    sw-image-desc: Unibo-asterisk-default-3
     virtual-compute-desc: ast-VM-compute
     virtual-storage-desc: ast-VM-storage
     supplemental-boot-data: 
