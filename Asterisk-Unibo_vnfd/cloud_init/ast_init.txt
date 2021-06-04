@@ -9,4 +9,7 @@ network:
     eth0:
       dhcp4: true
       set-name: eth0
+    eth1:
+      dhcp4: true
+      set-name: eth1  
 

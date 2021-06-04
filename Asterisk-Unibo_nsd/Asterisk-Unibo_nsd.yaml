@@ -11,6 +11,10 @@ nsd:
           - constituent-base-element-id: '1'
             constituent-cpd-id: vnf-osm-ext
           virtual-link-profile-id: osm-ext
+        - constituent-cpd-id:
+          - constituent-base-element-id: '1'
+            constituent-cpd-id: vnf-osm-ext-M
+          virtual-link-profile-id: osm-ext
         vnfd-id: Asterisk-Unibo_vnfd 
 
     id: Asterisk-Unibo_nsd

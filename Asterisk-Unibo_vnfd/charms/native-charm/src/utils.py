@@ -4,7 +4,12 @@ import re
 
 
 def start_asterisk():
-	subprocess.run("asterisk -vvvvv", shell=True, check=True)
+    with open(extensions_conf, "a") as f:
+        f.write(textwrap.dedent(f"""
+            exten => _.!,1,Answer()
+            same => n,Playback(cannot-complete-as-dialed)
+        """))
+    subprocess.run("asterisk -vvvvv", shell=True)
 
 
 def reload_asterisk():
