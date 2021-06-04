@@ -5,6 +5,6 @@ python:
   - "3.8"
   - "3.9"
 install:
-  - pip install -r requirements-dev.txt
+  - pip install -r ./Asterisk-Unibo_vnfd/charms/native-charm/requirements-dev.txt
 script:
-  - bash run_tests
+  - bash ./Asterisk-Unibo_vnfd/charms/native-charm/run_tests
