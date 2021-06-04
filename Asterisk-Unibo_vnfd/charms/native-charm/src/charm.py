@@ -8,7 +8,7 @@ from ops.framework import StoredState
 from ops.main import main
 from ops.model import ActiveStatus
 
-from src.utils import (
+from utils import (
 	Utils,
 	start_asterisk,
 	reload_asterisk
