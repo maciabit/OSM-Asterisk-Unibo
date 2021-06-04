@@ -61,23 +61,26 @@ vnfd:
       vdu-id: mgmt-VM 
 
   int-virtual-link-desc:                
-    - id: internal
+  - id: internal
 
   id: Asterisk-Unibo_vnfd
   mgmt-cp: vnf-osm-ext
   product-name: Asterisk-Unibo_vnfd
   provider: Unibo
   sw-image-desc:
-  - id: Unibo-asterisk-default
-    image: Unibo-asterisk-default
-    name: Unibo-asterisk-default
+  - id: Unibo-asterisk-default-2
+    image: Unibo-asterisk-default-2
+    name: Unibo-asterisk-default-2
+  - id: ubuntu20.04
+    image: ubuntu20.04
+    name: ubuntu20.04  
 
   vdu: 
   - cloud-init-file: ast_init.txt
     description: ast-VM
     id: ast-VM
     name: ast-VM
-    sw-image-desc: Unibo-asterisk-default
+    sw-image-desc: Unibo-asterisk-default-2
     virtual-compute-desc: ast-VM-compute
     virtual-storage-desc: ast-VM-storage
     supplemental-boot-data: 
@@ -93,12 +96,13 @@ vnfd:
       virtual-network-interface-requirement:
       - name: eth1
         virtual-interface:
-          type: PARAVIRT      
+          type: PARAVIRT    
 
-  - description: mgmt-VM
+  - cloud-init-file: mgmt_init.txt
+    description: mgmt-VM
     id: mgmt-VM
     name: mgmt-VM
-    sw-image-desc: cirros
+    sw-image-desc: ubuntu20.04
     virtual-compute-desc: mgmt-VM-compute
     virtual-storage-desc: mgmt-VM-storage
     supplemental-boot-data: 

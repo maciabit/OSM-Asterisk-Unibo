@@ -1,0 +1,15 @@
+#cloud-config
+manage_etc_hosts: true
+password: management-unibo
+chpasswd: { expire: False }
+ssh_pwauth: True
+network:
+  version: 2
+  ethernets:
+    eth0:
+      dhcp4: true
+      set-name: eth0
+    eth1:
+      dhcp4: true
+      set-name: eth1  
+
