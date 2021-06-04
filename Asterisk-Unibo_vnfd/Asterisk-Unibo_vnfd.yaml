@@ -8,9 +8,13 @@ vnfd:
       vdu-level:
       - number-of-instances: 1
         vdu-id: ast-VM
+      - number-of-instances: 1
+        vdu-id: mgmt-VM  
     vdu-profile:
     - id: ast-VM
-      min-number-of-instances: 1
+      min-number-of-instances: 1 
+    - id: mgmt-VM
+      min-number-of-instances: 1  
 
     lcm-operations-configuration:
       operate-vnf-op-config:
@@ -50,7 +54,14 @@ vnfd:
   - id: vnf-osm-ext
     int-cpd:
       cpd: eth0-int
-      vdu-id: ast-VM   
+      vdu-id: ast-VM
+  - id: vnf-osm-ext-M
+    int-cpd:
+      cpd: eth0-int
+      vdu-id: mgmt-VM 
+
+  int-virtual-link-desc:                
+    - id: internal
 
   id: Asterisk-Unibo_vnfd
   mgmt-cp: vnf-osm-ext
@@ -77,6 +88,33 @@ vnfd:
       - name: eth0
         virtual-interface:
           type: PARAVIRT
+    - id: eth1-int
+      int-virtual-link-desc: internal
+      virtual-network-interface-requirement:
+      - name: eth1
+        virtual-interface:
+          type: PARAVIRT      
+
+  - description: mgmt-VM
+    id: mgmt-VM
+    name: mgmt-VM
+    sw-image-desc: cirros
+    virtual-compute-desc: mgmt-VM-compute
+    virtual-storage-desc: mgmt-VM-storage
+    supplemental-boot-data: 
+      boot-data-drive: true
+    int-cpd:
+    - id: eth0-int
+      virtual-network-interface-requirement:
+      - name: eth0
+        virtual-interface:
+          type: PARAVIRT
+    - id: eth1-int
+      int-virtual-link-desc: internal
+      virtual-network-interface-requirement:
+      - name: eth1
+        virtual-interface:
+          type: PARAVIRT              
 
   version: '1.0'
   virtual-compute-desc:
@@ -85,6 +123,13 @@ vnfd:
       num-virtual-cpu: 2
     virtual-memory:
       size: 4.0 
+  - id: mgmt-VM-compute
+    virtual-cpu:
+      num-virtual-cpu: 1
+    virtual-memory:
+      size: 1.0     
   virtual-storage-desc:
   - id: ast-VM-storage
     size-of-storage: 40
+  - id: mgmt-VM-storage
+    size-of-storage: 10   
